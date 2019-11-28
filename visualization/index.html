@@ -7,7 +7,12 @@
 }
 
 .node text {
+	padding: 10px 0;
 	font: 10px sans-serif;
+}
+
+.node.node--leaf {
+	padding: 10px 0;
 }
 
 .node--internal circle {
@@ -59,7 +64,7 @@ var cluster = d3.cluster()
 var stratify = d3.stratify()
 	.parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
 
-d3.csv("http://127.0.0.1/visualization/flare.csv", function(error, data) {
+d3.csv("http://127.0.0.1/visualization/test.csv", function(error, data) {
 	if (error) throw error;
 
 	var root = stratify(data)
