@@ -1,23 +1,16 @@
 #!/usr/bin/env python
-'''
-This code is part of the publication "On the Origins of Memes by Means of Fringe Web Communities" at IMC 2018.
-If you use this code please cite the publication.
-'''
-import os, sys, shutil, traceback
-import json
-import time
-import threading
 
+import json
+import os
+import pickle
+import threading
+import time
 from optparse import OptionParser
 
-import multiprocessing
-from time import sleep
-import settings
-
+import numpy as np
 import tensorflow as tf
-import numpy as np
-import pickle
-import numpy as np
+
+import settings
 
 tf.app.flags.DEFINE_integer("batch_size", 4000000, "Search batch size")
 FLAGS = tf.app.flags.FLAGS

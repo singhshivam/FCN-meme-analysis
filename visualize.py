@@ -1,19 +1,8 @@
-'''
-This code is part of the publication "On the Origins of Memes by Means of Fringe Web Communities" at IMC 2018.
-If you use this code please cite the publication.
-'''
-import matplotlib.image as mpimg
 import json
-import numpy as np
-from scipy.sparse import lil_matrix, csr_matrix
-from sklearn.cluster import DBSCAN
-from collections import Counter
-import matplotlib.pyplot as plt
-import requests
-import shutil
-from PIL import Image
 import pickle
-import sys
+
+import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
 from scipy.io import loadmat
 
 plt.switch_backend('agg')
@@ -54,6 +43,8 @@ with open(inp_file, 'r') as f:
             continue
         part = 0
         pdf = PdfPages(base_dir_output + 'cluster' + str(cluster) + '.pdf')
+        json_folder = base_dir_output + 'json/'
+        json_file = open(json_folder + 'cluster' + str(cluster) + '.json', 'w')
 
         images_in_cluster = output_json['images']
 
@@ -71,6 +62,7 @@ with open(inp_file, 'r') as f:
         images_added = []
         for i, image in enumerate(images_in_cluster):
             path = image
+            json_file.write(path + '\n')
             try:
                 img = mpimg.imread(path)
                 flag = False
@@ -104,5 +96,6 @@ with open(inp_file, 'r') as f:
             pass
         try:
             pdf.close()
+            json_file.close()
         except:
             pass
