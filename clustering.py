@@ -1,22 +1,12 @@
-'''
-This code is part of the publication "On the Origins of Memes by Means of Fringe Web Communities" at IMC 2018.
-If you use this code please cite the publication.
-'''
-import matplotlib.image as mpimg
 import json
-import numpy as np
-from scipy.sparse import lil_matrix, csr_matrix
-from sklearn.cluster import DBSCAN
 from collections import Counter
+
 import matplotlib.pyplot as plt
-import requests
-import shutil
-from PIL import Image
+from scipy.sparse import lil_matrix
+from sklearn.cluster import DBSCAN
 
 plt.switch_backend('agg')
-from matplotlib.backends.backend_pdf import PdfPages
 import math
-import sys
 from scipy.io import savemat
 import pickle
 from optparse import OptionParser

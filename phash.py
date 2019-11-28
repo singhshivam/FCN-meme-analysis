@@ -1,20 +1,13 @@
 # !/usr/bin/env python
 
-'''
-This code is part of the publication "On the Origins of Memes by Means of Fringe Web Communities" at IMC 2018.
-If you use this code please cite the publication.
-'''
-
-import os
-from operator import itemgetter
-from PIL import Image
-import math, operator
-from time import sleep
-from multiprocessing import Process, Manager, Queue
 # import Queue
 import itertools
-import imagehash
+import os
+from multiprocessing import Process, Manager, Queue
 from optparse import OptionParser
+
+import imagehash
+from PIL import Image
 
 parser = OptionParser()
 parser.add_option("-d", "--directory", dest='directory', help="directory that contains the images to calculate phashes")
