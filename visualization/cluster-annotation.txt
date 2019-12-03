@@ -1,0 +1,26 @@
+1 => sad-rick-keanu-joker-yoda
+2 => baby yoda
+3 => 8values => politics
+5 => Daily Struggle => classic meme
+6 => flags => world map
+11 => picachu-yoda
+13 => twitter
+20 => reallife pics
+29 => Donald trump => politics
+31 => cybertruck => cybertruck
+45 => meme => 
+48 => yoda
+51 => baby yoda star wars
+53 => tweets
+"58" => "Baby Yoda" => movies
+"59" => "Elon - cybertruck - 2 and half men" => Cybertruck
+"60" => "Pepe the frog" => classic meme
+"62" => "Baby Yoda" => movies
+"66" => "Paintbucket the planet!" => "trends"
+"72" => ""
+"77" => "Baby yoda+jocker+keanu" => movies
+"83" => "Baby Yoda"
+"85" => Europe Map => Map
+"95" => Tweets => Screenshots
+"97" => Tweets => Screenshots
+"117" => "Joker hit by car" => movies
