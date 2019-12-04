@@ -78,6 +78,7 @@ d3.csv("http://127.0.0.1/visualization/test.csv", function(error, data) {
 		.attr("class", "link")
 		.attr("d", diagonal);
 
+	console.log(data)
 	var node = g.selectAll(".node")
 		.data(root.descendants())
 		.enter().append("g")
