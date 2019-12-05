@@ -32,13 +32,14 @@ def load_json(outdir_tmp):
     return myjson
 
 
-'''
-Convert a stored hash (hex, as retrieved from str(Imagehash))
-to a bool array object.
-'''
 
 
 def hex_to_hash(hexstr, hash_size=8):
+    # inspired from https://github.com/JohannesBuchner/imagehash/blob/master/imagehash/__init__.py
+    '''
+    Convert a stored hash (hex, as retrieved from str(Imagehash))
+    to a bool array object.
+    '''
     l = []
     count = hash_size * (hash_size // 4)
     if len(hexstr) != count:
@@ -291,8 +292,11 @@ def seek_queue_many(ids, hashes, outdir, blacklist, hashes_diff):
     print(total_tasks)
     pbar = tf.contrib.keras.utils.Progbar(total_tasks)
 
+    # PREPARING PLACEHOLDERS FOR TF SESSION
     # are used to feed data into our queue
+    # queue_i: matrix of unknown length
     queue_i = tf.placeholder(tf.int32, shape=[None])
+    # queue_hash_i: matrix of unknown matrix rows each with 64 columns
     queue_hash_i = tf.placeholder(tf.bool, shape=[None, 64])
     queue_hashes_j = tf.placeholder(tf.bool, shape=[batch_size, None])  # shape=[None, 64] [len_hashes]
 
@@ -309,6 +313,7 @@ def seek_queue_many(ids, hashes, outdir, blacklist, hashes_diff):
 
     where_op = tf.where(filter_op)
 
+    # INITIALIZING SESSION
     # start the threads for our FIFOQueue and batch
     sess = tf.Session(config=config)
 
@@ -329,7 +334,7 @@ def seek_queue_many(ids, hashes, outdir, blacklist, hashes_diff):
     outdir_tmp = outdir + '.tmp' + '.' + str(settings.distributed_machine)
     # Fetch the data from the pipeline and put it where it belongs (into your model)
     for _ in range(total_tasks):
-        # Computing diff
+        # REAL MEAT: Computing diff
         i, hash_i = sess.run(dequeue_op)
         diff, filter, where = sess.run([diff_op_many, filter_op, where_op],
                                        feed_dict={diff_hash_i: hash_i, diff_hashes_j: hashes[i:]})
@@ -512,10 +517,17 @@ def main(options, arguments):
         outfile = options.output
 
     ## - Pre-computation
+    # read_phashes_manifest takes the output file from last step
+    # phashes file contains phashes for all images
+    # returns a dict that contains <image ID, pHash> as key value pair
     hashes_dic = read_phashes_manifest(phases_path)
+    # precompute_vectors returns a list of list. These lists contains bool array vector
+    # representaion of each image which is recontructed from their phash.
     hashes = precompute_vectors(hashes_dic, phases_path)
 
     hashes_diff = {}
+    # BAD CODE: We are maintaining a backlist for all the files we are currently processing
+    # this is to avoid errors
     blacklist = read_blacklist_dict(phases_path)
 
     if options.device == None:
